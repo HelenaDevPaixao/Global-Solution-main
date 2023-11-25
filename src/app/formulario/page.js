@@ -4,7 +4,9 @@ import Button from 'react'
 import react from "react";
 import Link from "next/link";
 import Image from "next/image";
-
+import axios from "axios";
+import { rule } from "postcss";
+ 
 const Formulario = () => {
   const [sexo, setSexo] = useState("");
   const [idade, setIdade] = useState("");
@@ -15,24 +17,58 @@ const Formulario = () => {
   const [frutas, setFrutas] = useState("");
   const [legumes, setLegumes] = useState("");
   const [dificuldadeEscadas, setDificuldadeEscadas] = useState("");
-  const [concluido, setConcluido] = useState(false);
-
+  const [concluido, setConcluido] = useState(true);
+  const [loading, setLoading] = useState(true);
+ 
   const handleConcluir = () => {
-    
-    if (sexo && idade && peso && altura && fumante && atividadeFisica && frutas && legumes && dificuldadeEscadas) {
-      setConcluido(true);
-    } else {
-      setConcluido(false);
-    }
-  };
+ 
+      const Formulario = () => {
+        const history = useHistory();
+ 
+        const handleConcluir = () => {
+          const formData = {
+            Age: idade,
+            Sex: sexo,
+            BMI: peso,
+            Smoker: fumante,
+            PhysActivity: atividadeFisica,
+            Fruits: frutas,
+            Veggies: legumes,
+            DiffWalk: dificuldadeEscadas,
+          };
+      
+ 
+          axios
+            .post("http://127.0.0.1:5000/", {
+              // ...
+            })
+            .then(function (response) {
+              console.log("chamada realizada com sucesso");
+              console.log(response);
+              setConcluido(true);
+              history.push("/resposta");
+            })
+            .catch(function (error) {
+              console.log("chamada falhou");
+              setConcluido(false);
+              setLoading(false);
+            });
+        };
+ 
+        
 
+      };
+      
+      
+  };
+ 
   return (
     <main className="flex flex-col items-center p-8">
       <h1 className="text-2xl font-bold mb-4">Preencha os campos abaixo:</h1>
-
+ 
       <label className="mb-4">
         1- Selecione seu sexo:
-        
+ 
         <div className="flex items-center" >
           <input
             type="checkbox"
@@ -179,17 +215,20 @@ const Formulario = () => {
       </label>
       <br></br>
       <button
-        className={`mt-4 p-2 text-white ${
-          concluido ? "bg-blue-500" : "bg-gray-500 cursor-not-allowed"
-        }`}
+        className={`mt-4 p-2 text-white ${concluido ? "bg-blue-500" : "bg-gray-500 cursor-not-allowed"
+          }`}
         onClick={handleConcluir}
-        disabled={!concluido}
+        disabled={false}
       >
-        CONCLUIR
+        
+        <Link href="/resposta">
+            CONCLUIR
+          </Link>
       </button>
+
     </main>
   );
 };
-
+ 
 export default Formulario;
 

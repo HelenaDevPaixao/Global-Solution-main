@@ -24,6 +24,9 @@ const Cadastro = () => {
     console.log('Nome:', username, 'Senha:', password);
   };
 
+
+
+
   return (
     <main className="flex min-h-screen items-center justify-center p-6 bg-gray-100">
       <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md">
@@ -60,6 +63,10 @@ const Cadastro = () => {
         </div>
         
       </form>
+
+      <br></br>
+      <br></br>
+      
     </main>
   );
 };
