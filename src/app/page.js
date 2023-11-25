@@ -7,11 +7,12 @@ import Formulario from './formulario/page';
 import Button from 'react'
 import Link from 'next/link';
 import { useState } from 'react';
+import axios from "axios";
 
 const LoginPage = () => {
   return (
     <div>
-      <h1>Login</h1>
+      
       <Login />
     </div>
   );
